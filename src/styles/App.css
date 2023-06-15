@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  text-align: center;
+  height: 100vh;
+}
+
+img {
+  width: 90vw;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+input {
+  width: 20vw;
+  margin: 25px;
+}
