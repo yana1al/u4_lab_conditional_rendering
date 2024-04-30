@@ -1,41 +1,49 @@
-const Form = (props) => {
+import React from 'react';
+
+const Form = ({ formValues, handleInputChange, goToPage }) => {
+  const { name, email, age } = formValues;
+
+  const isValid = name.trim() !== '' && email.trim() !== '' && age.trim() !== '';
+
+  const handleNextClick = () => {
+    if (isValid) {
+      goToPage('thanks');
+    }
+  };
 
   return (
     <div>
-      <h1>Information Form</h1>
+      <h1>Sign Up Information Form</h1>
       <h4>Please enter your info below...</h4>
       <form>
         <input
           type="text"
           name="name"
-          placeholder="Your
-           Name"
-          value={props.name}
-          onChange={props.handleChange}
+          placeholder="Your Name"
+          value={name}
+          onChange={handleInputChange}
         />
         <input
           type="text"
           name="email"
           placeholder="Your Email"
-          value={props.email}
-          onChange={props.handleChange}
+          value={email}
+          onChange={handleInputChange}
         />
         <input
           type="text"
           name="age"
           placeholder="Your Age"
-          value={props.age}
-          onChange={props.handleChange}
+          value={age}
+          onChange={handleInputChange}
         />
       </form>
       <div>
-        <button>Back</button>
-        {/* If you want your button to go back, you better hook up a method to it's onClick property here! */}
-        <button onClick={props.incrementPage}>Next</button>
-        {/* This button has already been hooked up for you, just gotta pass the prop to this component! */}
+        <button onClick={() => goToPage('home')}>Back</button>
+        <button disabled={!isValid} onClick={handleNextClick}>Next</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;

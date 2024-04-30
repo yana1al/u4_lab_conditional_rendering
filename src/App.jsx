@@ -1,35 +1,43 @@
-import './styles/App.css'
-import { useState } from 'react'
-import Home from './components/Home'
+import './styles/App.css';
+import { useState } from 'react';
+import Home from './components/Home';
+import Landing from './components/Landing'; // Import the Landing component
+import Form from './components/Form';
+import Thanks from './components/Thanks';
+import Error from './components/Error';
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState(0)
-  const [formValues, setFormValues] = useState({ name: '', age: '', email: '' })
+  const [currentPage, setCurrentPage] = useState('home');
+  const [formValues, setFormValues] = useState({ name: '', age: '', email: '' });
+
+  const goToPage = (pageName) => {
+    setCurrentPage(pageName);
+  };
+
+  const resetState = () => {
+    setCurrentPage('home');
+    setFormValues({ name: '', email: '', age: '' });
+  };
 
   const handleChange = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value })
-    // Uses bracket notation to access a key in state that is a match to the input's name and sets it to the input's value
-    // This has already been hooked up for you!
-  }
-
-  const incrementPage = () => {
-    setCurrentPage((prevState) => prevState + 1)
-    // Already does what you need it to, just have to hook it up to your buttons with an onClick
-    // If you decide to make a function for going BACK (bonus), maybe make it do the opposite of this?
-  }
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className="App">
-      <Home
-        currentPage={currentPage}
-        name={formValues.name}
-        age={formValues.age}
-        email={formValues.email}
-        incrementPage={incrementPage}
-        handleChange={handleChange}
-      />
+      {currentPage === 'home' && <Home goToPage={goToPage} />}
+      {currentPage === 'landing' && <Landing goToPage={goToPage} />} {/* Render Landing component */}
+      {currentPage === 'form' && (
+        <Form
+          formValues={formValues}
+          handleInputChange={handleChange}
+          goToPage={goToPage}
+        />
+      )}
+      {currentPage === 'thanks' && <Thanks resetState={resetState} />}
+      {currentPage === 'error' && <Error resetState={resetState} />}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

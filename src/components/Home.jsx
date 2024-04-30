@@ -1,13 +1,12 @@
-const Home = (props) => {
-  // Most all of your work for this lab will be done here in the HomePage component.
+import React from 'react';
 
-  // Set up conditional rendering below to determine which component to show on our home page!
-
+const Home = ({ goToPage }) => {
   return (
-    <div className="home">
-      {/* We'll want to render some component here based on a condition that we determine above! */}
+    <div>
+      <h1>Welcome to our site!</h1>
+      <button onClick={() => goToPage('landing')}>Sign Up</button>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
